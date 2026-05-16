@@ -1,5 +1,19 @@
-AGENTS.md
-GEMINI.md
+# Python
 __pycache__/
 *.pyc
 venv/
+
+# Database
+db.sqlite3
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+.git/
+
+# Agents
+AGENTS.md
+GEMINI.md

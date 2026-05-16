@@ -1,101 +1,97 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
+from django.core.exceptions import PermissionDenied
 
+from .forms import VisitaForm
 from .models import Lugar, Visita
 
 
-# Create your views here.
 def index(request):
+    """Render the landing page."""
     return render(request, "index.html")
 
 
 def lista_lugares(request):
-    lugares = Lugar.objects.all()
-
+    """Display a list of all places, optimized with select_related."""
+    lugares = Lugar.objects.select_related("destino", "categoria", "destino__ciudad", "destino__estado").all()
     return render(request, "lista.html", {"lugares": lugares})
 
 
 def detalle_lugar(request, lugar_id):
-    lugar = Lugar.objects.get(id=lugar_id)
-
+    """Display details for a specific place."""
+    lugar = get_object_or_404(Lugar.objects.select_related("destino", "categoria"), id=lugar_id)
     return render(request, "detalles.html", {"lugar": lugar})
 
 
 @login_required
 def agregar_lugar(request):
-    lugares = Lugar.objects.all()
-
+    """Handle adding a new visit to any place."""
     if request.method == "POST":
-        lugar = Lugar.objects.get(id=request.POST.get("lugar_id"))
-        fecha = request.POST.get("fecha")
-        resena = request.POST.get("resena")
-        calificacion = request.POST.get("calificacion")
-        platillo = request.POST.get("platillo")
+        form = VisitaForm(request.POST)
+        if form.is_valid():
+            visita = form.save(commit=False)
+            visita.usuario = request.user
+            visita.save()
+            return redirect("lugar_lista")
+    else:
+        form = VisitaForm()
 
-        visita = Visita(
-            usuario=request.user,
-            lugar=lugar,
-            fecha=fecha,
-            resena=resena,
-            calificacion=calificacion,
-            platillo=platillo,
-        )
-
-        visita.save()
-        return redirect("lugar_lista")
-
-    return render(request, "agregar_visita.html", {"lugares": lugares})
+    lugares = Lugar.objects.all()
+    return render(request, "agregar_visita.html", {"form": form, "lugares": lugares})
 
 
 @login_required
 def visita_lugar(request, lugar_id):
-    lugar = Lugar.objects.get(id=lugar_id)
-    lugares = Lugar.objects.all()
-
+    """Handle adding a visit to a specific place."""
+    lugar = get_object_or_404(Lugar, id=lugar_id)
     if request.method == "POST":
-        fecha = request.POST.get("fecha")
-        resena = request.POST.get("resena")
-        calificacion = request.POST.get("calificacion")
-        platillo = request.POST.get("platillo")
+        form = VisitaForm(request.POST)
+        if form.is_valid():
+            visita = form.save(commit=False)
+            visita.usuario = request.user
+            visita.lugar = lugar
+            visita.save()
+            return redirect("lugar_lista")
+    else:
+        form = VisitaForm(initial={"lugar": lugar})
 
-        visita = Visita(
-            usuario=request.user,
-            lugar=lugar,
-            fecha=fecha,
-            resena=resena,
-            calificacion=calificacion,
-            platillo=platillo,
-        )
-
-        visita.save()
-        return redirect("lugar_lista")
-
-    return render(request, "agregar_visita.html", {"lugar": lugar, "lugares": lugares})
+    lugares = Lugar.objects.all()
+    return render(request, "agregar_visita.html", {"form": form, "lugar": lugar, "lugares": lugares})
 
 
+@login_required
 def visitas_usuario(request):
-    visitas = Visita.objects.filter(usuario=request.user)
-
+    """Display visits belonging to the logged-in user."""
+    visitas = Visita.objects.filter(usuario=request.user).select_related("lugar", "lugar__destino")
     return render(request, "visitas.html", {"visitas": visitas})
 
 
+@login_required
 def editar_visita(request, visita_id):
-    visita = Visita.objects.get(id=visita_id)
+    """Edit an existing visit, with ownership check."""
+    visita = get_object_or_404(Visita, id=visita_id)
+    
+    if visita.usuario != request.user:
+        raise PermissionDenied
 
     if request.method == "POST":
-        visita.fecha = request.POST.get("fecha")
-        visita.resena = request.POST.get("resena")
-        visita.calificacion = request.POST.get("calificacion")
-        visita.platillo = request.POST.get("platillo")
+        form = VisitaForm(request.POST, instance=visita)
+        if form.is_valid():
+            form.save()
+            return redirect("visitas")
+    else:
+        form = VisitaForm(instance=visita)
 
-        visita.save()
-        return redirect("visitas")
-
-    return render(request, "editar_visita.html", {"visita": visita})
+    return render(request, "editar_visita.html", {"form": form, "visita": visita})
 
 
+@login_required
 def eliminar_visita(request, visita_id):
-    visita = Visita.objects.get(id=visita_id)
+    """Delete an existing visit, with ownership check."""
+    visita = get_object_or_404(Visita, id=visita_id)
+
+    if visita.usuario != request.user:
+        raise PermissionDenied
 
     if request.method == "POST":
         visita.delete()

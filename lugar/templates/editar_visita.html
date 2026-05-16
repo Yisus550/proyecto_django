@@ -1,44 +1,12 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 {% block title %}Editar Visita{% endblock %}
 {% block content %}
     <h2>Editar Visita</h2>
     <form method="post">
-        {% csrf_token %} {{ form.as_p }}
-        <div>
-            <label for="id_lugar">Lugar*:</label>
-            <select name="lugar" id="id_lugar" required disabled>
-                <option value="{{ visita.lugar.id }}" selected>
-                    {{ visita.lugar.nombre }}
-                </select>
-            </div>
-            <div>
-                <label for="fecha">Fecha*:</label>
-                <input type="date"
-                       id="fecha"
-                       name="fecha"
-                       value="{{ visita.fecha }}"
-                       required>
-            </div>
-            <div>
-                <label for="resena">Reseña*:</label>
-                <textarea name="resena" id="resena" rows="5" cols="40">{{ visita.resena }}</textarea>
-            </div>
-            <div>
-                <label for="calificacion">Calificación*:</label>
-                <input type="number"
-                       id="calificacion"
-                       name="calificacion"
-                       min="1"
-                       max="5"
-                       value="{{ visita.calificacion }}"
-                       required>
-            </div>
-            <div>
-                <label for="platillo">Platillo:</label>
-                <input type="text"
-                       id="platillo"
-                       name="platillo"
-                       value="{{ visita.platillo }}">
-            </div>
-            <button type="submit">Guardar Cambios</button>
-        {% endblock %}
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <a href="{% url 'visitas' %}">Cancelar</a>
+{% endblock %}
