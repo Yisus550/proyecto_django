@@ -1,1 +1,16 @@
+# Python
+venv/
+**/__pycache__/
+
+# Database
+db.sqlite3
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# Agents
 AGENTS.md
+GEMINI.md
