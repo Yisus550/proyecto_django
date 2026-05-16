@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Editar Visita
+{% endblock %}
+
+{% block content %}
+  <h2>
+    Editar Visita
+  </h2>
+  <p>
+    ¿Estás seguro de que deseas eliminar esta visita?
+  </p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">
+      Sí, eliminar
+    </button>
+    <a href="{% url 'visitas' %}">Cancelar</a>
+  </form>
+{% endblock %}

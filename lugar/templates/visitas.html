@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Mis Visitas
+{% endblock %}
+
+{% block content %}
+  <h2>
+    Mis Visitas
+  </h2>
+
+  <a href="{% url 'agregar_visita' %}">Registrar Nueva Visita</a>
+
+  {% if visitas %}
+    <ul>
+      {% for visita in visitas %}
+        <li>
+          <strong>{{ visita.lugar.nombre }}</strong> - {{ visita.fecha }}
+          <br>
+          Calificación: {{ visita.calificacion }}
+          <br>
+          Reseña: {{ visita.resena }}
+          <br>
+          {% if visita.platillo %}
+            Platillo: {{ visita.platillo }}
+            <br>
+          {% endif %}
+          <a href="{% url 'editar_visita' visita.id %}">Editar</a>
+          <a href="{% url 'eliminar_visita' visita.id %}">Eliminar</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>
+      No has registrado ninguna visita aún.
+    </p>
+  {% endif %}
+
+{% endblock %}
