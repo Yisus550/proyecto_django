@@ -1,26 +1,30 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 
 from user.forms import UsuarioCreationForm
 
 
 def login_view(request):
+    """Handle user authentication."""
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
             login(request, user)
             return redirect("index")
         return render(
             request,
             "registration/login.html",
-            {"error": "Credenciales inválidas"},
+            {"form": form, "error": "Credenciales inválidas"},
         )
-    return render(request, "registration/login.html")
+    else:
+        form = AuthenticationForm()
+    return render(request, "registration/login.html", {"form": form})
 
 
 def register_view(request):
+    """Handle new user registration."""
     if request.method == "POST":
         form = UsuarioCreationForm(request.POST)
         if form.is_valid():
@@ -33,5 +37,6 @@ def register_view(request):
 
 
 def logout_view(request):
+    """Handle user logout."""
     logout(request)
     return redirect("index")
