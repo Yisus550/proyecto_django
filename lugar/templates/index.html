@@ -1,10 +1,8 @@
 {% extends "base.html" %}
-
 {% block title %}Viajes Gastronómicos{% endblock %}
-
 {% block content %}
-<h2>Bienvenido a Viajes Gastronómicos</h2>
-<p>Descubre los mejores lugares gastronómicos de México.</p>
-<a href="{% url 'lugar_lista' %}">Ver lugares</a>
-<a href="{% url 'visitas' %}">Ir a Mis Visitas</a>
+    <h2>Bienvenido a Viajes Gastronómicos</h2>
+    <p>Descubre los mejores lugares gastronómicos de México.</p>
+    <a href="{% url 'lugar_lista' %}">Ver lugares</a>
+    <a href="{% url 'visitas' %}">Ir a Mis Visitas</a>
 {% endblock %}

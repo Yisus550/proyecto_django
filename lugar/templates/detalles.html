@@ -1,14 +1,11 @@
 {% extends "base.html" %}
-
 {% block title %}{{ lugar.nombre }}{% endblock %}
-
 {% block content %}
-<h2>{{ lugar.nombre }}</h2>
-
-<p>{{ lugar.descripcion }}</p>
-<p>{{ lugar.destino.ciudad.nombre }}, {{ lugar.destino.estado.nombre }}</p>
-<div>
-  <a href="{% url 'lugar_visita' lugar.id %}">Agregar a visitados</a>
-  <a href="{% url 'lugar_lista' %}">Volver</a>
-</div>
+    <h2>{{ lugar.nombre }}</h2>
+    <p>{{ lugar.descripcion }}</p>
+    <p>{{ lugar.destino.ciudad.nombre }}, {{ lugar.destino.estado.nombre }}</p>
+    <div>
+        <a href="{% url 'lugar_visita' lugar.id %}">Agregar a visitados</a>
+        <a href="{% url 'lugar_lista' %}">Volver</a>
+    </div>
 {% endblock %}

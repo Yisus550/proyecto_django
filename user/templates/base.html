@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{% block title %}Viajes Gastronómicos{% endblock %}</title>
-  </head>
-  <body>
-    <nav>
-      <a href="{% url 'index' %}">Inicio</a>
-      <a href="{% url 'lugar_lista' %}">Lugares</a>
-      {% if user.is_authenticated %}
-        <span>Hola, {{ user.first_name|default:user.username }}</span>
-        <a href="{% url 'logout' %}">Cerrar sesión</a>
-      {% else %}
-        <a href="{% url 'login' %}">Iniciar sesión</a>
-        <a href="{% url 'register' %}">Registrarse</a>
-      {% endif %}
-    </nav>
-    <hr />
-    {% block content %}{% endblock %}
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>
+            {% block title %}Viajes Gastronómicos{% endblock %}
+        </title>
+    </head>
+    <body>
+        <nav>
+            <a href="{% url 'index' %}">Inicio</a>
+            <a href="{% url 'lugar_lista' %}">Lugares</a>
+            {% if user.is_authenticated %}
+                <span>Hola, {{ user.first_name|default:user.username }}</span>
+                <a href="{% url 'logout' %}">Cerrar sesión</a>
+            {% else %}
+                <a href="{% url 'login' %}">Iniciar sesión</a>
+                <a href="{% url 'register' %}">Registrarse</a>
+            {% endif %}
+        </nav>
+        <hr />
+        {% block content %}{% endblock %}
+    </body>
 </html>

@@ -1,17 +1,14 @@
 {% extends "base.html" %}
-
 {% block title %}Lista de Lugares{% endblock %}
-
 {% block content %}
-<h2>Lista de Lugares</h2>
-
-{% for lugar in lugares %}
-<div>
-    <h4>{{ lugar.nombre }}</h4>
-    <p>{{ lugar.descripcion }}</p>
-    <p>{{ lugar.destino.ciudad.nombre }}, {{ lugar.destino.estado.nombre }}</p>
-    <a href="{% url 'lugar_detalles' lugar.id %}">Ir</a>
-</div>
-<br />
-{% endfor %}
+    <h2>Lista de Lugares</h2>
+    {% for lugar in lugares %}
+        <div>
+            <h4>{{ lugar.nombre }}</h4>
+            <p>{{ lugar.descripcion }}</p>
+            <p>{{ lugar.destino.ciudad.nombre }}, {{ lugar.destino.estado.nombre }}</p>
+            <a href="{% url 'lugar_detalles' lugar.id %}">Ir</a>
+        </div>
+        <br />
+    {% endfor %}
 {% endblock %}
