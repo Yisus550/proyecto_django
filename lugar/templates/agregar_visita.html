@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 {% block title %}Agregar Visita{% endblock %}
 {% block content %}
     <h2>Agregar Visita</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% bootstrap_form form %}
         <button type="submit">Agregar Visita</button>
     </form>
 {% endblock %}
