@@ -11,6 +11,8 @@ db.sqlite3
 .env.development
 .env.production
 
+.git/
+
 # Agents
 AGENTS.md
 GEMINI.md
