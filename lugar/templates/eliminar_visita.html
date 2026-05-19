@@ -1,11 +1,17 @@
-{% extends "base.html" %}
-{% block title %}Eliminar Visita{% endblock %}
+{% extends "base.html" %} {% block title %}Eliminar Visita{% endblock %} 
 {% block content %}
-    <h2>Eliminar Visita</h2>
-    <p>¿Estás seguro de que deseas eliminar esta visita?</p>
+<h2 class="text-center my-5">Eliminar Visita</h2>
+<div class="container border border-black p-4 mb-5 w-50">
+  <div class="row">
+    <p class="text-center">¿Estás seguro de que deseas eliminar esta visita?</p>
     <form method="post">
-        {% csrf_token %}
-        <button type="submit">Sí, eliminar</button>
-        <a href="{% url 'visitas' %}">Cancelar</a>
+      {% csrf_token %}
+      <div class="text-center">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'visitas' %}" class="btn btn-secondary">Cancelar</a>
+      </div>
     </form>
+  </div>
+</div>
+
 {% endblock %}

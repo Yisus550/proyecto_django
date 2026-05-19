@@ -1,14 +1,27 @@
-{% extends "base.html" %}
-{% block title %}Lista de Lugares{% endblock %}
+{% extends "base.html" %} 
+{% block title %}Lista de Lugares{% endblock %} 
 {% block content %}
-    <h2>Lista de Lugares</h2>
+
+<h2 class="text-center my-5">Lista de Lugares</h2>
+
+<div class="container">
+  <div class="row">
     {% for lugar in lugares %}
-        <div>
-            <h4>{{ lugar.nombre }}</h4>
-            <p>{{ lugar.descripcion }}</p>
-            <p>{{ lugar.destino.ciudad.nombre }}, {{ lugar.destino.estado.nombre }}</p>
-            <a href="{% url 'lugar_detalles' lugar.id %}">Ir</a>
+    <div class="col-md-3 text-center mb-4">
+      <div class="card h-100 d-flex flex-column">
+        <img src="/static/img4.jpg" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h4 class="card-title">{{ lugar.nombre }}</h4>
+          <p class="card-text">{{ lugar.descripcion }}</p>
+          <p class="card-text">
+            {{ lugar.destino.ciudad.nombre }}, {{ lugar.destino.estado.nombre }}
+          </p>
+          <a href="{% url 'lugar_visita' lugar.id %}" class="btn btn-success">Agregar a visitados</a>
         </div>
-        <br />
+      </div>
+    </div>
     {% endfor %}
+  </div>
+</div>
 {% endblock %}
+

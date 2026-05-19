@@ -1,13 +1,25 @@
-{% extends "base.html" %}
-{% block title %}Crear cuenta{% endblock %}
+{% extends "base.html" %} 
+{% load django_bootstrap5 %} 
+{% block title %}Crear cuenta{% endblock %} 
 {% block content %}
-    <h2>Crear cuenta</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Registrarse</button>
-    </form>
-    <p>
-        ¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión</a>
-    </p>
+<h2 class="text-center my-5">Crear cuenta</h2>
+<div class="container w-50">
+  <div class="row">
+    <div class="col">
+      <form method="post">
+        {% csrf_token %} 
+        {% bootstrap_form form %}
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary px-5 my-3">
+            Registrarse
+          </button>
+          <p>
+            ¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

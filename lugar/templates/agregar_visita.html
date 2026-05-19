@@ -1,11 +1,27 @@
-{% extends "base.html" %}
-{% load django_bootstrap5 %}
-{% block title %}Agregar Visita{% endblock %}
-{% block content %}
-    <h2>Agregar Visita</h2>
-    <form method="post">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <button type="submit">Agregar Visita</button>
-    </form>
+{% extends "base.html" %} {% load django_bootstrap5 %} {% block title %}Agregar
+Visita{% endblock %} {% block content %}
+<h2 class="text-center my-5">Agregar Visita</h2>
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <img src="/static/img5.jpg" class="card-img-top" alt="..." />
+        <div class="card-body text-center">
+          <h4 class="card-title">{{ lugar.nombre }}</h4>
+          <p class="card-text">{{ lugar.descripcion }}</p>
+          <p class="card-text">
+            {{ lugar.destino.ciudad.nombre }}, {{ lugar.destino.estado.nombre }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <form method="post">
+        {% csrf_token %} {% bootstrap_form form %}
+        <button type="submit" class="btn btn-success">Agregar Visita</button>
+      </form>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

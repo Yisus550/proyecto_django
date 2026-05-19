@@ -1,28 +1,46 @@
-{% extends "base.html" %}
-{% block title %}Mis Visitas{% endblock %}
+{% extends "base.html" %} {% block title %}Mis Visitas{% endblock %} 
 {% block content %}
-    <h2>Mis Visitas</h2>
-    <a href="{% url 'agregar_visita' %}">Registrar Nueva Visita</a>
-    {% if visitas %}
-        <ul>
-            {% for visita in visitas %}
-                <li>
-                    <strong>{{ visita.lugar.nombre }}</strong> - {{ visita.fecha }}
-                    <br>
-                    Calificación: {{ visita.calificacion }}
-                    <br>
-                    Reseña: {{ visita.resena }}
-                    <br>
-                    {% if visita.platillo %}
-                        Platillo: {{ visita.platillo }}
-                        <br>
-                    {% endif %}
-                    <a href="{% url 'editar_visita' visita.id %}">Editar</a>
-                    <a href="{% url 'eliminar_visita' visita.id %}">Eliminar</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No has registrado ninguna visita aún.</p>
-    {% endif %}
-{% endblock %}
+<h2 class="text-center my-5">Mis Visitas</h2>
+
+<div class="container">
+  <a href="{% url 'agregar_visita' %}" class="btn btn-secondary mb-5"
+    >Registrar Nueva Visita</a
+  >
+  <div class="row">
+    {% if visitas %} {% for visita in visitas %}
+    <div class="col-md-3 text-center mb-4">
+      <div class="card h-100 d-flex flex-column">
+        <img src="/static/img4.jpg" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ visita.lugar.nombre }} - {{ visita.fecha }}
+          </h5>
+          <br />
+          Calificación: {{ visita.calificacion }}
+          <br />
+          Reseña: {{ visita.resena }}
+          <br />
+          {% if visita.platillo %} Platillo: {{ visita.platillo }}
+          <br />
+          {% endif %}
+          <a
+            href="{% url 'editar_visita' visita.id %}"
+            class="btn btn-sm btn-primary mt-2"
+            >Editar</a
+          >
+          <a
+            href="{% url 'eliminar_visita' visita.id %}"
+            class="btn btn-sm btn-danger mt-2"
+            >Eliminar</a
+          >
+          {% endfor %} {% else %}
+          <p>No tienes visitas registradas.</p>
+
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+</div>

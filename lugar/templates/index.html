@@ -1,8 +1,101 @@
-{% extends "base.html" %}
-{% block title %}Viajes Gastronómicos{% endblock %}
+{% extends "base.html" %} {% block title %}Viajes Gastronómicos{% endblock %} 
 {% block content %}
-    <h2>Bienvenido a Viajes Gastronómicos</h2>
-    <p>Descubre los mejores lugares gastronómicos de México.</p>
-    <a href="{% url 'lugar_lista' %}">Ver lugares</a>
-    <a href="{% url 'visitas' %}">Ir a Mis Visitas</a>
+<div id="carouselExampleIndicators" class="carousel slide">
+  <div class="carousel-indicators">
+    <button
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide-to="0"
+      class="active"
+      aria-current="true"
+      aria-label="Slide 1"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide-to="1"
+      aria-label="Slide 2"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide-to="2"
+      aria-label="Slide 3"
+    ></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active" style="max-height: 600px">
+      <img src="/static/img7.jpg" class="d-block w-100" alt="..." />
+    </div>
+    <div class="carousel-item" style="max-height: 600px">
+      <img src="/static/img8.jpg" class="d-block w-100" alt="..." />
+    </div>
+    <div class="carousel-item" style="max-height: 600px">
+      <img src="/static/img9.jpg" class="d-block w-100" alt="..." />
+    </div>
+  </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleIndicators"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleIndicators"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<div class="container my-5 text-center">
+  <div class="row mb-5">
+    <div class="col-md-12">
+      <h2 class="mt-4">Bienvenido a Viajes Gastronómicos</h2>
+      <p>Descubre los mejores lugares gastronómicos de México.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5 text-center">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <img src="/static/img5.jpg" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Lugares</h5>
+          <p class="card-text">
+            Descripción de la sección de Lugares. Aquí puedes explorar los
+            diferentes lugares gastronómicos que hemos seleccionado para ti.
+          </p>
+          <a href="{% url 'lugar_lista' %}" class="btn btn-primary"
+            >Ver lugares</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <img src="/static/img6.jpg" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Mis Visitas</h5>
+          <p class="card-text">
+            Descripción de la sección de Mis Visitas. Aquí puedes ver los
+            lugares que has visitado y tus experiencias gastronómicas.
+          </p>
+          <a href="{% url 'visitas' %}" class="btn btn-primary"
+            >Ir a Mis Visitas</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

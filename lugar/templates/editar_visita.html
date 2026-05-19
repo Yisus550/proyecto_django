@@ -1,12 +1,16 @@
-{% extends "base.html" %}
-{% load django_bootstrap5 %}
-{% block title %}Editar Visita{% endblock %}
-{% block content %}
-    <h2>Editar Visita</h2>
+{% extends "base.html" %} {% load django_bootstrap5 %} {% block title %}Editar
+Visita{% endblock %} {% block content %}
+<h2 class="text-center my-5">Editar Visita</h2>
+<div class="container mb-5">
+  <div class="row">
     <form method="post">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <button type="submit">Guardar Cambios</button>
+      {% csrf_token %} {% bootstrap_form form %}
+      <div class="text-center">
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a href="{% url 'visitas' %}" class="btn btn-danger">Cancelar</a>
+      </div>
     </form>
-    <a href="{% url 'visitas' %}">Cancelar</a>
+  </div>
+</div>
+
 {% endblock %}
